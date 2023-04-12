@@ -52,6 +52,7 @@ const LoginForm = () => {
       }
       navigate("/home");
     } catch (error) {
+      console.log(error);
       alert("지점 정보가 없습니다.");
     }
   };
@@ -64,14 +65,14 @@ const LoginForm = () => {
         <hr />
         <input
           placeholder="지점코드 4자리입력"
-          maxLength="4"
+          // maxLength="4"
           required
           ref={branchId}
         />
         <input
           type="password"
           placeholder="인증번호 4자리입력"
-          maxLength="4"
+          // maxLength="4"
           required
           ref={authNumber}
         />

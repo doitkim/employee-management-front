@@ -1,0 +1,82 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.header {
+  background-color: white;
+  min-height: 5vh;
+  line-height: 60px;
+  font-size: 28px;
+  padding: 1px;
+  text-align: center;
+}
+
+.header a {
+  text-decoration: none;
+  color: black;
+}
+
+.container {
+  display: flex;
+  padding: 10px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+
+  height: 42px;
+  align-items: center;
+  text-align: center;
+}
+
+.logOut {
+  width: 120px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 88vh;
+  align-items: center;
+  background-color: #333;
+  color: #666666;
+}
+
+.workerlistContainer {
+  display: flex;
+  height: 40px;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 40px;
+  font-size: 20px;
+  color: rgb(170, 170, 170);
+  width: 80vw;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.workerlistContainer div button {
+  width: 120px;
+  height: 40px;
+  background-color: #007bff;
+  border-color: #007bff;
+  font-size: 15px;
+  margin-left: 2px;
+}
+
+.footer {
+  border-top: 0;
+  min-height: 5vh;
+  line-height: 20px;
+  padding: 2px;
+  text-align: center;
+  background-color: #333;
+  color: #666666;
+}

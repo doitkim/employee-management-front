@@ -32,7 +32,7 @@ const HomePage = () => {
   return (
     <>
       <HomeHeader branchInfo={branchInfo} />
-      <HomeBody />
+      <HomeBody branchInfo={branchInfo} />
       <HomeFooter />
     </>
   );

@@ -12,18 +12,21 @@ import WorkerItem from "../../../components/Home/WorkerItem";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-function WorkerList() {
+function WorkerList(props) {
   const [worker, setWorker] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-
   useEffect(() => {
-    async function searchAll() {
-      const res = await axios.get("http://localhost:8000/worker");
-      setWorker(res.data);
+    if (props.branch.branchID !== undefined) {
+      async function searchAll() {
+        const res = await axios.post("http://localhost:8000/worker", {
+          branchID: props.branch.branchID,
+        });
+        setWorker(res.data);
+      }
+      searchAll();
     }
-    searchAll();
-  }, []);
+  }, [props.branch.branchID === undefined]);
 
   // 현재 페이지에 표시할 항목 계산
   const indexOfLastItem = currentPage * itemsPerPage;

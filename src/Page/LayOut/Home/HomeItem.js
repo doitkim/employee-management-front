@@ -1,7 +1,7 @@
 import style from "../../../CSS/HomePage.module.css";
 import WorkerList from "./WorkerList";
 
-const HomeItem = () => {
+const HomeItem = (props) => {
   return (
     <>
       <div className={style.workerlistContainer}>
@@ -11,7 +11,7 @@ const HomeItem = () => {
           <button>근로자 등록</button>
         </div>
       </div>
-      <WorkerList />
+      <WorkerList branch={props.branch} />
     </>
   );
 };

@@ -1,10 +1,10 @@
 import style from "../../../CSS/HomePage.module.css";
 import HomeItem from "./HomeItem";
 
-const HomeBody = () => {
+const HomeBody = (props) => {
   return (
     <div className={style.body}>
-      <HomeItem />
+      <HomeItem branch={props.branchInfo} />
     </div>
   );
 };

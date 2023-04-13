@@ -78,7 +78,6 @@ const LoginForm = () => {
         />
         <button>인증하기</button>
       </form>
-      ;
     </>
   );
 };

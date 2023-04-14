@@ -64,14 +64,14 @@ const LoginForm = () => {
         <div>지점관리를 위한 지점 인증을 해주세요</div>
         <hr />
         <input
-          placeholder="지점코드 4자리입력"
+          placeholder="지점코드"
           // maxLength="4"
           required
           ref={branchId}
         />
         <input
           type="password"
-          placeholder="인증번호 4자리입력"
+          placeholder="인증번호"
           // maxLength="4"
           required
           ref={authNumber}

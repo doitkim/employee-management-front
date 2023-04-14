@@ -86,20 +86,29 @@ const WorkerRegister = (props) => {
       workerHrieDate: workerHrieDate.current.value,
       workerLeaveDate:
         workerLeaveDate.current.value === "" && check === false
-          ? "-"
+          ? null
           : workerLeaveDate.current.value,
     });
     try {
-      if (worker !== {}) {
-        await axios.post("http://localhost:8000/workerRegister", {
-          employeeName: worker.workerName,
-          birthDate: worker.workerBirth,
-          phoneNumber: worker.workerHP,
-          workDays: workDay.join(),
-          hireDate: worker.workerHrieDate,
-          leaveDate: worker.workerLeaveDate,
-          branchId: props.branch.branchID,
-        });
+      if (worker.workerName !== undefined) {
+        const answer = window.confirm("등록하시겠습니까?");
+        if (answer) {
+          await axios
+            .post("http://localhost:8000/workerRegister", {
+              employeeName: worker.workerName,
+              birthDate: worker.workerBirth,
+              phoneNumber: worker.workerHP,
+              workDays: workDay.join(),
+              hireDate: worker.workerHrieDate,
+              leaveDate: worker.workerLeaveDate,
+              branchId: props.branch.branchID,
+            })
+            .then(navigate("/"));
+        } else {
+          navigate("/");
+        }
+      } else {
+        alert("죄송합니다. 등록 버튼을 다시 눌러주세요.");
       }
     } catch (error) {
       console.log(error);

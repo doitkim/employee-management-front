@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import moment from "moment";
 
-const WorkTime = () => {
+const WorkTime = (props) => {
   const [work, setWork] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -25,11 +25,25 @@ const WorkTime = () => {
 
   const onSearchWorkTime = async (e) => {
     e.preventDefault();
-    const result = await axios.post("http://localhost:8000/worktime", {
-      workerName: workerName.current.value,
-      workerPhoneNumber: workerPhoneNumber.current.value,
+
+    const res = await axios.post("http://localhost:8000/worker", {
+      branchID: props.branch.branchID,
     });
-    setWork(result.data);
+
+    const employeeInfo = res.data;
+
+    employeeInfo.map(async (e) => {
+      if (
+        e.employeeName === workerName.current.value &&
+        e.phoneNumber === workerPhoneNumber.current.value
+      ) {
+        const result = await axios.post("http://localhost:8000/worktime", {
+          workerName: workerName.current.value,
+          workerPhoneNumber: workerPhoneNumber.current.value,
+        });
+        setWork(result.data);
+      }
+    });
   };
 
   const onClickHomeHandler = () => {

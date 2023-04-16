@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import axios from "axios";
 
-const WorkerScheduleRegit = () => {
+const WorkerScheduleRegit = (props) => {
   const tablecellStyle = {
     display: "flex",
     flexDirection: "row",
@@ -21,6 +21,7 @@ const WorkerScheduleRegit = () => {
   const phoneNumber = useRef();
   const startTime = useRef();
   const endTime = useRef();
+
   const workTimeRegitHandler = async (e) => {
     e.preventDefault();
 
@@ -34,7 +35,6 @@ const WorkerScheduleRegit = () => {
         minute: "2-digit",
       }
     );
-    console.log(formattedStartTime);
 
     const formattedEndTime = new Date(endTime.current.value).toLocaleString(
       "kr-KO",
@@ -47,13 +47,25 @@ const WorkerScheduleRegit = () => {
       }
     );
 
-    await axios.post("http://localhost:8000/worktimeregit", {
-      workerName: workerName.current.value,
-      phoneNumber: phoneNumber.current.value,
-      startTime: formattedStartTime,
-      endTime: formattedEndTime,
+    const res = await axios.post("http://localhost:8000/worker", {
+      branchID: props.branch.branchID,
     });
-    navigate("/");
+
+    const employeeInfo = res.data;
+    employeeInfo.map(async (e) => {
+      if (
+        e.employeeName === workerName.current.value &&
+        e.phoneNumber === phoneNumber.current.value
+      ) {
+        await axios.post("http://localhost:8000/worktimeregit", {
+          workerName: workerName.current.value,
+          phoneNumber: phoneNumber.current.value,
+          startTime: formattedStartTime,
+          endTime: formattedEndTime,
+        });
+        navigate("/");
+      }
+    });
   };
 
   return (

@@ -3,7 +3,7 @@ import style from "../../../CSS/HomePage.module.css";
 import WorkerList from "./WorkerList";
 import { Box, Modal } from "@mui/material";
 import WorkerRegister from "../../../components/Home/WorkerRegister";
-import Calendar from "./WorkTime";
+import WorkTime from "./WorkTime";
 import WorkerScheduleRegit from "../../../components/Home/WorkekrScheduleReg";
 
 const HomeItem = (props) => {
@@ -23,6 +23,11 @@ const HomeItem = (props) => {
   const onClickSchedule = () => {
     setWorkerScheduleToggle(!wokerScheduleToggle);
   };
+
+  const modelStye = {
+    backgroundColor: "#333333",
+  };
+
   return (
     <>
       <div className={style.workerlistContainer}>
@@ -38,7 +43,7 @@ const HomeItem = (props) => {
         open={workerToggle}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
-        sx={{ backgroundColor: "#333333" }}
+        sx={modelStye}
       >
         <Box>
           <WorkerRegister branch={props.branch} />
@@ -48,20 +53,20 @@ const HomeItem = (props) => {
         open={calendarToggle}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
-        sx={{ backgroundColor: "#333333" }}
+        sx={modelStye}
       >
         <Box>
-          <Calendar />
+          <WorkTime branch={props.branch} />
         </Box>
       </Modal>
       <Modal
         open={wokerScheduleToggle}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
-        sx={{ backgroundColor: "#333333" }}
+        sx={modelStye}
       >
         <Box>
-          <WorkerScheduleRegit />
+          <WorkerScheduleRegit branch={props.branch} />
         </Box>
       </Modal>
     </>

@@ -6,7 +6,6 @@ import { useState } from "react";
 import axios from "axios";
 
 const WorkerRegister = (props) => {
-  const [worker, setWorker] = useState({});
   const [check, setcheck] = useState(false);
   const [workDay, setWorkDay] = useState([]);
   const tablecellStyle = {
@@ -79,39 +78,29 @@ const WorkerRegister = (props) => {
 
   const workerRegister = async (e) => {
     e.preventDefault();
-    setWorker({
-      workerName: workerName.current.value,
-      workerHP: workerHP.current.value,
-      workerBirth: workerBirth.current.value,
-      workerHrieDate: workerHrieDate.current.value,
-      workerLeaveDate:
-        workerLeaveDate.current.value === "" && check === false
-          ? null
-          : workerLeaveDate.current.value,
-    });
+
+    // 퇴사일이 없을 경우도 있기에 사전 작업
+    const leaveDate =
+      workerLeaveDate.current.value === "" && check === false
+        ? null
+        : workerLeaveDate.current.value;
     try {
-      if (worker.workerName !== undefined) {
-        const answer = window.confirm("등록하시겠습니까?");
-        if (answer) {
-          await axios
-            .post("http://localhost:8000/workerRegister", {
-              employeeName: worker.workerName,
-              birthDate: worker.workerBirth,
-              phoneNumber: worker.workerHP,
-              workDays: workDay.join(),
-              hireDate: worker.workerHrieDate,
-              leaveDate: worker.workerLeaveDate,
-              branchId: props.branch.branchID,
-            })
-            .then(navigate("/"));
-        } else {
-          navigate("/");
-        }
-      } else {
-        alert("죄송합니다. 등록 버튼을 다시 눌러주세요.");
-      }
+      await axios
+        .post("http://localhost:8000/workerRegister", {
+          employeeName: workerName.current.value,
+          birthDate: workerBirth.current.value,
+          phoneNumber: workerHP.current.value,
+          workDays: workDay.join(),
+          hireDate: workerHrieDate.current.value,
+          leaveDate,
+          branchId: props.branch.branchID,
+        })
+        .then(navigate("/"));
     } catch (error) {
-      console.log(error);
+      console.error(
+        `An error occurred while registering worker: ${error.message}`,
+        error
+      );
     }
   };
 

@@ -60,6 +60,8 @@ const WorkTime = (props) => {
     setCurrentPage(value);
   };
 
+  let totalHour = 0;
+
   return (
     <>
       <form
@@ -100,6 +102,21 @@ const WorkTime = (props) => {
           alignItems: "center",
         }}
       >
+        {/* 총 근무 시간 표기 */}
+        {currentItems.map((w) => {
+          // eslint-disable-next-line no-lone-blocks
+          {
+            totalHour =
+              totalHour +
+              moment
+                .duration(
+                  moment(w.workEndTime, "YYYY-MM-DD HH:mm").diff(
+                    moment(w.workStartTime, "YYYY-MM-DD HH:mm")
+                  )
+                )
+                .asHours();
+          }
+        })}
         <TableContainer component={Paper} sx={{ width: "80%" }}>
           <Table aria-label="simple table">
             <TableHead>
@@ -107,7 +124,7 @@ const WorkTime = (props) => {
                 <TableCell>근로자명</TableCell>
                 <TableCell>근무 시작</TableCell>
                 <TableCell>근무 종료</TableCell>
-                <TableCell>근무 시간</TableCell>
+                <TableCell>근무 시간 ({totalHour})</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -120,8 +137,8 @@ const WorkTime = (props) => {
                     <TableCell>
                       {moment
                         .duration(
-                          moment(w.workEndTime, "YYYY. MM. DD. a hh:mm").diff(
-                            moment(w.workStartTime, "YYYY. MM. DD. a hh:mm")
+                          moment(w.workEndTime, "YYYY-MM-DD HH:mm").diff(
+                            moment(w.workStartTime, "YYYY-MM-DD HH:mm")
                           )
                         )
                         .asHours()}

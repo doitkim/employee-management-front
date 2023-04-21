@@ -51,6 +51,8 @@ function WorkerList(props) {
               <TableCell>입사일</TableCell>
               <TableCell>퇴사일</TableCell>
               <TableCell>등록일</TableCell>
+              <TableCell>수정</TableCell>
+              <TableCell>삭제</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
